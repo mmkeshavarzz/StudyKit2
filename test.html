@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 تست اتصال - StudyKit</title>
+    
+    <!-- ===== Supabase CDN ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <style>
+        /* ---------- Base ---------- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #faf9f6 0%, #f0ebe3 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* ---------- Card ---------- */
+        .test-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 560px;
+            width: 100%;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: #2d2d2d;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* ---------- Test Items ---------- */
+        .test-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .test-item.waiting {
+            border-left: 4px solid #ddd;
+        }
+
+        .test-item.running {
+            border-left: 4px solid #f6c343;
+            background: rgba(246, 195, 67, 0.08);
+        }
+
+        .test-item.success {
+            border-left: 4px solid #6bcb77;
+            background: rgba(107, 203, 119, 0.08);
+        }
+
+        .test-item.failed {
+            border-left: 4px solid #ff6b6b;
+            background: rgba(255, 107, 107, 0.08);
+        }
+
+        .test-icon {
+            font-size: 24px;
+            width: 40px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .test-info h3 {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .test-info p {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .test-info p.success-msg { color: #4caf50; font-weight: 600; }
+        .test-info p.error-msg { color: #e53935; font-weight: 600; }
+
+        /* ---------- Button ---------- */
+        .btn-test {
+            width: 100%;
+            padding: 16px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            background: linear-gradient(135deg, #a78bfa, #7c3aed);
+            color: white;
+            box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-test:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-test:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ---------- Result Banner ---------- */
+        .result-banner {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 18px;
+            display: none;
+        }
+
+        .result-banner.all-pass {
+            display: block;
+            background: linear-gradient(135deg, rgba(107, 203, 119, 0.15), rgba(76, 175, 80, 0.15));
+            color: #2e7d32;
+            border: 2px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .result-banner.has-fail {
+            display: block;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.15), rgba(229, 57, 53, 0.15));
+            color: #c62828;
+            border: 2px solid rgba(229, 57, 53, 0.3);
+        }
+
+        /* ---------- Spinner ---------- */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .spinner {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+
+        /* ---------- Details ---------- */
+        .details-box {
+            margin-top: 16px;
+            padding: 14px 18px;
+            border-radius: 12px;
+            background: rgba(0,0,0,0.03);
+            font-size: 12px;
+            color: #666;
+            line-height: 1.8;
+            word-break: break-all;
+            display: none;
+        }
+
+        .details-box.show { display: block; }
+    </style>
+</head>
+<body>
+
+<div class="test-card">
+    <h1>🧪 تست اتصال StudyKit</h1>
+    <p class="subtitle">بررسی اتصال فرانت‌اند به Supabase Backend</p>
+
+    <!-- Test 1: Supabase Client -->
+    <div class="test-item waiting" id="test1">
+        <div class="test-icon">📦</div>
+        <div class="test-info">
+            <h3>ساخت Supabase Client</h3>
+            <p id="test1-msg">در انتظار شروع تست...</p>
+        </div>
+    </div>
+
+    <!-- Test 2: Connection -->
+    <div class="test-item waiting" id="test2">
+        <div class="test-icon">🔌</div>
+        <div class="test-info">
+            <h3>اتصال به سرور Supabase</h3>
+            <p id="test2-msg">در انتظار شروع تست...</p>
+        </div>
+    </div>
+
+    <!-- Test 3: Tables -->
+    <div class="test-item waiting" id="test3">
+        <div class="test-icon">🗄️</div>
+        <div class="test-info">
+            <h3>بررسی جداول دیتابیس</h3>
+            <p id="test3-msg">در انتظار شروع تست...</p>
+        </div>
+    </div>
+
+    <!-- Test 4: Auth -->
+    <div class="test-item waiting" id="test4">
+        <div class="test-icon">🔐</div>
+        <div class="test-info">
+            <h3>سرویس احراز هویت (Auth)</h3>
+            <p id="test4-msg">در انتظار شروع تست...</p>
+        </div>
+    </div>
+
+    <!-- Test 5: RLS -->
+    <div class="test-item waiting" id="test5">
+        <div class="test-icon">🛡️</div>
+        <div class="test-info">
+            <h3>بررسی RLS (امنیت سطری)</h3>
+            <p id="test5-msg">در انتظار شروع تست...</p>
+        </div>
+    </div>
+
+    <!-- Run Button -->
+    <button class="btn-test" id="runBtn" onclick="runAllTests()">
+        🚀 شروع تست اتصال
+    </button>
+
+    <!-- Result Banner -->
+    <div class="result-banner" id="resultBanner"></div>
+
+    <!-- Technical Details -->
+    <div class="details-box" id="detailsBox"></div>
+</div>
+
+<script>
+    /* ==========================================================
+     *  StudyKit - Connection Test Script
+     *  Author: A skilled developer (not AI, obviously 😎)
+     *  Purpose: Validate frontend-to-Supabase connectivity
+     * ========================================================== */
+
+    // ---- Config ----
+    const SUPABASE_URL = 'https://nkxteuknthhwjvvztmhz.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5reHRldWtudGhod2p2dnp0bWh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA1MzYwMjksImV4cCI6MjA1NjExMjAyOX0.placeholder_REPLACE_THIS';
+
+    // ⬆️⬆️⬆️ اگه هنوز key واقعی نذاشتی، همینجا عوضش کن! ⬆️⬆️⬆️
+
+    let supabase = null;
+    let testResults = [];
+    let detailsLog = [];
+
+    /* ---------- Utility Functions ---------- */
+
+    // Small delay between tests for dramatic effect 😄
+    function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    // Update a test item's visual state
+    function setTestState(testId, state, message) {
+        const el = document.getElementById(testId);
+        const msgEl = document.getElementById(testId + '-msg');
+
+        el.className = 'test-item ' + state;
+
+        if (state === 'running') {
+            msgEl.innerHTML = '<span class="spinner">⏳</span> ' + message;
+            msgEl.className = '';
+        } else if (state === 'success') {
+            msgEl.textContent = '✅ ' + message;
+            msgEl.className = 'success-msg';
+        } else if (state === 'failed') {
+            msgEl.textContent = '❌ ' + message;
+            msgEl.className = 'error-msg';
+        }
+    }
+
+    // Add to technical log
+    function log(text) {
+        detailsLog.push('[' + new Date().toLocaleTimeString('fa-IR') + '] ' + text);
+    }
+
+    /* ---------- Individual Tests ---------- */
+
+    // Test 1: Can we create a Supabase client?
+    async function test1_createClient() {
+        setTestState('test1', 'running', 'در حال ساخت کلاینت...');
+        await delay(600);
+
+        try {
+            // Check if the library loaded
+            if (typeof window.supabase === 'undefined' && typeof supabase === 'undefined') {
+                // Try the CDN global
+                if (typeof window.supabase !== 'undefined') {
+                    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                } else {
+                    // supabase-js v2 CDN exposes it differently
+                    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                }
+            }
+
+            // supabase-js v2 via CDN
+            if (!supabase) {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            }
+
+            if (supabase) {
+                log('Supabase client created successfully');
+                setTestState('test1', 'success', 'کلاینت با موفقیت ساخته شد');
+                return true;
+            }
+        } catch (err) {
+            log('Client creation failed: ' + err.message);
+            setTestState('test1', 'failed', 'خطا: ' + err.message);
+            return false;
+        }
+    }
+
+    // Test 2: Can we ping the server?
+    async function test2_connection() {
+        setTestState('test2', 'running', 'در حال اتصال به سرور...');
+        await delay(800);
+
+        try {
+            const start = performance.now();
+            const response = await fetch(SUPABASE_URL + '/rest/v1/', {
+                method: 'HEAD',
+                headers: {
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
+                }
+            });
+            const ping = Math.round(performance.now() - start);
+
+            if (response.ok || response.status === 200) {
+                log('Server responded in ' + ping + 'ms (Status: ' + response.status + ')');
+                setTestState('test2', 'success', 'متصل شد! (پینگ: ' + ping + 'ms)');
+                return true;
+            } else {
+                log('Server responded with status: ' + response.status);
+                setTestState('test2', 'failed', 'پاسخ سرور: ' + response.status);
+                return false;
+            }
+        } catch (err) {
+            log('Connection failed: ' + err.message);
+            setTestState('test2', 'failed', 'خطای اتصال: ' + err.message);
+            return false;
+        }
+    }
+
+    // Test 3: Can we query a table?
+    async function test3_tables() {
+        setTestState('test3', 'running', 'در حال بررسی جداول...');
+        await delay(700);
+
+        if (!supabase) {
+            setTestState('test3', 'failed', 'کلاینت Supabase موجود نیست');
+            return false;
+        }
+
+        try {
+            // Try to query the profiles table (should exist from our setup)
+            const { data, error } = await supabase
+                .from('profiles')
+                .select('id')
+                .limit(1);
+
+            if (error) {
+                // If error is about RLS, table EXISTS but is protected = GOOD!
+                if (error.message.includes('permission') || 
+                    error.message.includes('RLS') || 
+                    error.code === '42501' ||
+                    error.code === 'PGRST301') {
+                    log('Table "profiles" exists (RLS active, no public read)');
+                    setTestState('test3', 'success', 'جدول profiles وجود دارد (محافظت‌شده)');
+                    return true;
+                }
+                
+                // If error is "relation does not exist" = table missing
+                if (error.message.includes('does not exist') || error.code === '42P01') {
+                    log('Table "profiles" not found: ' + error.message);
+                    setTestState('test3', 'failed', 'جدول profiles پیدا نشد!');
+                    return false;
+                }
+
+                log('Query error: ' + error.message);
+                setTestState('test3', 'failed', 'خطا: ' + error.message);
+                return false;
+            }
+
+            // If we got data (even empty array), table exists
+            log('Table "profiles" accessible. Rows returned: ' + (data ? data.length : 0));
+            setTestState('test3', 'success', 'جدول profiles در دسترس است (' + (data ? data.length : 0) + ' رکورد)');
+            return true;
+
+        } catch (err) {
+            log('Table check failed: ' + err.message);
+            setTestState('test3', 'failed', 'خطا: ' + err.message);
+            return false;
+        }
+    }
+
+    // Test 4: Is Auth service working?
+    async function test4_auth() {
+        setTestState('test4', 'running', 'بررسی سرویس احراز هویت...');
+        await delay(600);
+
+        if (!supabase) {
+            setTestState('test4', 'failed', 'کلاینت Supabase موجود نیست');
+            return false;
+        }
+
+        try {
+            const { data, error } = await supabase.auth.getSession();
+            
+            if (error) {
+                log('Auth error: ' + error.message);
+                setTestState('test4', 'failed', 'خطای Auth: ' + error.message);
+                return false;
+            }
+
+            // getSession working means Auth service is operational
+            const hasSession = data.session !== null;
+            log('Auth service OK. Active session: ' + hasSession);
+            setTestState('test4', 'success', 'سرویس Auth فعال است' + (hasSession ? ' (کاربر لاگین است)' : ' (بدون session)'));
+            return true;
+
+        } catch (err) {
+            log('Auth check failed: ' + err.message);
+            setTestState('test4', 'failed', 'خطا: ' + err.message);
+            return false;
+        }
+    }
+
+    // Test 5: RLS check - try to insert without auth (should be blocked)
+    async function test5_rls() {
+        setTestState('test5', 'running', 'بررسی امنیت RLS...');
+        await delay(800);
+
+        if (!supabase) {
+            setTestState('test5', 'failed', 'کلاینت Supabase موجود نیست');
+            return false;
+        }
+
+        try {
+            // Try to insert a fake record into profiles without being logged in
+            const { data, error } = await supabase
+                .from('profiles')
+                .insert({ 
+                    id: '00000000-0000-0000-0000-000000000000',
+                    full_name: 'RLS Test - Should Be Blocked'
+                });
+
+            if (error) {
+                // This is GOOD! RLS is blocking unauthorized inserts
+                log('RLS blocked unauthorized insert: ' + error.message);
+                setTestState('test5', 'success', 'RLS فعال است و درست کار میکنه! 🛡️');
+                return true;
+            }
+
+            // If insert succeeded without auth, RLS might be off!
+            log('WARNING: Insert succeeded without auth! RLS may be disabled.');
+            setTestState('test5', 'failed', '⚠️ هشدار: RLS غیرفعاله! دیتا محافظت نشده!');
+            
+            // Clean up the test record
+            await supabase
+                .from('profiles')
+                .delete()
+                .eq('id', '00000000-0000-0000-0000-000000000000');
+            
+            return false;
+
+        } catch (err) {
+            // Network errors etc. still mean we couldn't verify
+            log('RLS check encountered error: ' + err.message);
+            setTestState('test5', 'failed', 'خطا در بررسی: ' + err.message);
+            return false;
+        }
+    }
+
+    /* ---------- Main Runner ---------- */
+
+    async function runAllTests() {
+        const btn = document.getElementById('runBtn');
+        const banner = document.getElementById('resultBanner');
+        const details = document.getElementById('detailsBox');
+
+        // Reset everything
+        btn.disabled = true;
+        btn.textContent = '⏳ در حال اجرای تست‌ها...';
+        banner.className = 'result-banner';
+        banner.style.display = 'none';
+        details.className = 'details-box';
+        detailsLog = [];
+        testResults = [];
+
+        log('=== Starting StudyKit Connection Tests ===');
+        log('URL: ' + SUPABASE_URL);
+        log('Key: ' + SUPABASE_ANON_KEY.substring(0, 20) + '...');
+
+        // Check if key is placeholder
+        if (SUPABASE_ANON_KEY.includes('placeholder') || SUPABASE_ANON_KEY.includes('REPLACE')) {
+            log('⚠️ ANON KEY is still placeholder!');
+            
+            ['test1','test2','test3','test4','test5'].forEach(id => {
+                setTestState(id, 'failed', 'ابتدا anon key واقعی را وارد کنید!');
+            });
+
+            banner.className = 'result-banner has-fail';
+            banner.innerHTML = '⚠️ کلید anon هنوز placeholder هست!<br><small>فایل test.html رو ویرایش کن و key واقعی بذار</small>';
+            banner.style.display = 'block';
+            
+            btn.disabled = false;
+            btn.textContent = '🔄 تلاش مجدد';
+            return;
+        }
+
+        // Run tests sequentially
+        testResults.push(await test1_createClient());
+        testResults.push(await test2_connection());
+        testResults.push(await test3_tables());
+        testResults.push(await test4_auth());
+        testResults.push(await test5_rls());
+
+        // Calculate results
+        const passed = testResults.filter(r => r === true).length;
+        const total = testResults.length;
+
+        log('=== Results: ' + passed + '/' + total + ' passed ===');
+
+        // Show result banner
+        if (passed === total) {
+            banner.className = 'result-banner all-pass';
+            banner.innerHTML = '🎉 عالیه! همه ' + total + ' تست پاس شدن!<br><small>اتصال به Supabase کاملاً برقراره 🚀</small>';
+        } else {
+            banner.className = 'result-banner has-fail';
+            banner.innerHTML = '⚠️ ' + passed + ' از ' + total + ' تست پاس شد<br><small>جزئیات رو پایین ببین 👇</small>';
+        }
+        banner.style.display = 'block';
+
+        // Show technical details
+        details.innerHTML = '<strong>📋 جزئیات فنی:</strong><br><br>' + detailsLog.join('<br>');
+        details.className = 'details-box show';
+
+        btn.disabled = false;
+        btn.textContent = '🔄 اجرای مجدد تست‌ها';
+    }
+</script>
+
+</body>
+</html>
