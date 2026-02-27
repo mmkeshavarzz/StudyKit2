@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <!-- ═══════════════════════════════════════════════════
+         📌 StudyKit Institute - Landing Page
+         📅 Version: 1.0.0 | Last Update: 1404/12/08
+         👨‍💻 Developed with passion & precision
+         ═══════════════════════════════════════════════════ -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="موسسه آموزشی استادی کیت - مدیریت هوشمند مطالعه و برنامه‌ریزی درسی">
+    <meta name="keywords" content="استادی کیت, مطالعه, برنامه‌ریزی درسی, کنکور, آموزش">
+    <meta name="author" content="StudyKit Team">
+    <meta name="theme-color" content="#F5F0EB">
+
+    <!-- Open Graph Tags (برای اشتراک‌گذاری در شبکه‌های اجتماعی) -->
+    <meta property="og:title" content="StudyKit | موسسه آموزشی استادی کیت">
+    <meta property="og:description" content="مدیریت هوشمند مطالعه و برنامه‌ریزی درسی">
+    <meta property="og:type" content="website">
+
+    <title>StudyKit | موسسه آموزشی استادی کیت</title>
+
+    <!-- فونت‌های فارسی و انگلیسی -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- آیکون‌های Lucide (سبک‌تر از FontAwesome) -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+
+    <!-- استایل اصلی -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════
+         🔝 نوار ناوبری (Navigation Bar)
+         ═══════════════════════════════════════ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <!-- لوگو -->
+            <a href="#" class="nav-logo">
+                <div class="logo-icon">
+                    <i data-lucide="book-open-check"></i>
+                </div>
+                <span class="logo-text">Study<span class="logo-highlight">Kit</span></span>
+            </a>
+
+            <!-- منوی دسکتاپ -->
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#hero" class="nav-link active">خانه</a></li>
+                <li><a href="#features" class="nav-link">امکانات</a></li>
+                <li><a href="#stats" class="nav-link">آمار</a></li>
+                <li><a href="#testimonials" class="nav-link">نظرات</a></li>
+                <li><a href="#pricing" class="nav-link">تعرفه‌ها</a></li>
+                <li><a href="#faq" class="nav-link">سوالات</a></li>
+            </ul>
+
+            <!-- دکمه‌های CTA -->
+            <div class="nav-actions">
+                <a href="#" class="btn-ghost" id="loginBtn">ورود</a>
+                <a href="#" class="btn-primary-nav">ثبت‌نام رایگان</a>
+            </div>
+
+            <!-- دکمه همبرگری موبایل -->
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle Menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+
+
+    <!-- ═══════════════════════════════════════
+         🦸 بخش Hero (بنر اصلی)
+         ═══════════════════════════════════════ -->
+    <section class="hero" id="hero">
+        <!-- ذرات متحرک پس‌زمینه -->
+        <div class="hero-particles" id="heroParticles"></div>
+
+        <div class="hero-container">
+            <div class="hero-content">
+                <!-- بج بالای عنوان -->
+                <div class="hero-badge glass-card">
+                    <span class="badge-dot"></span>
+                    <span>پلتفرم شماره ۱ مدیریت مطالعه در ایران 🇮🇷</span>
+                </div>
+
+                <!-- عنوان اصلی -->
+                <h1 class="hero-title">
+                    مطالعه‌ات رو
+                    <span class="gradient-text">هوشمند</span>
+                    مدیریت کن!
+                </h1>
+
+                <!-- زیرعنوان -->
+                <p class="hero-subtitle">
+                    با استادی‌کیت، برنامه‌ریزی درسی، ثبت ساعات مطالعه و رسیدن به اهدافت رو
+                    به یه تجربه لذت‌بخش تبدیل کن. همه چیز هوشمند، ساده و زیبا.
+                </p>
+
+                <!-- دکمه‌های CTA -->
+                <div class="hero-actions">
+                    <a href="#" class="btn-primary">
+                        <i data-lucide="rocket"></i>
+                        <span>شروع رایگان</span>
+                    </a>
+                    <a href="#features" class="btn-secondary">
+                        <i data-lucide="play-circle"></i>
+                        <span>ببین چطور کار میکنه</span>
+                    </a>
+                </div>
+
+                <!-- آمار کوتاه -->
+                <div class="hero-mini-stats">
+                    <div class="mini-stat">
+                        <div class="mini-stat-avatars">
+                            <div class="avatar-circle" style="background: #A8D8EA;">م</div>
+                            <div class="avatar-circle" style="background: #FFB7B2;">ز</div>
+                            <div class="avatar-circle" style="background: #B5EAD7;">ع</div>
+                            <div class="avatar-circle" style="background: #E2B4F5;">ر</div>
+                            <div class="avatar-circle avatar-more">+</div>
+                        </div>
+                        <p><strong id="userCount">0</strong>+ دانش‌آموز فعال</p>
+                    </div>
+                    <div class="mini-stat-divider"></div>
+                    <div class="mini-stat">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p>امتیاز <strong>۴.۹</strong> از ۵</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تصویر / موکاپ Hero -->
+            <div class="hero-visual">
+                <div class="hero-mockup glass-card">
+                    <!-- داشبورد شبیه‌سازی شده -->
+                    <div class="mockup-header">
+                        <div class="mockup-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <span class="mockup-url">app.studykit.ir/dashboard</span>
+                    </div>
+                    <div class="mockup-body">
+                        <!-- کارت آمار -->
+                        <div class="mock-stats-row">
+                            <div class="mock-stat-card neo-card">
+                                <i data-lucide="clock" class="mock-icon pastel-blue"></i>
+                                <div>
+                                    <span class="mock-number" id="mockHours">0</span>
+                                    <span class="mock-label">ساعت مطالعه</span>
+                                </div>
+                            </div>
+                            <div class="mock-stat-card neo-card">
+                                <i data-lucide="target" class="mock-icon pastel-pink"></i>
+                                <div>
+                                    <span class="mock-number" id="mockGoals">0</span>
+                                    <span class="mock-label">هدف تکمیل‌شده</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- نمودار ساده -->
+                        <div class="mock-chart neo-card">
+                            <span class="mock-chart-title">نمودار مطالعه هفتگی</span>
+                            <div class="chart-bars">
+                                <div class="chart-bar" data-height="40" style="--bar-color: #A8D8EA;"></div>
+                                <div class="chart-bar" data-height="65" style="--bar-color: #FFB7B2;"></div>
+                                <div class="chart-bar" data-height="50" style="--bar-color: #B5EAD7;"></div>
+                                <div class="chart-bar" data-height="80" style="--bar-color: #E2B4F5;"></div>
+                                <div class="chart-bar" data-height="70" style="--bar-color: #FFDAC1;"></div>
+                                <div class="chart-bar" data-height="90" style="--bar-color: #C7CEEA;"></div>
+                                <div class="chart-bar" data-height="55" style="--bar-color: #F5E6CC;"></div>
+                            </div>
+                            <div class="chart-labels">
+                                <span>ش</span><span>ی</span><span>د</span><span>س</span><span>چ</span><span>پ</span><span>ج</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- عناصر شناور تزئینی -->
+                <div class="floating-element float-1 glass-card">
+                    <i data-lucide="flame"></i>
+                    <span>۱۲ روز متوالی! 🔥</span>
+                </div>
+                <div class="floating-element float-2 glass-card">
+                    <i data-lucide="trophy"></i>
+                    <span>رتبه ۱ هفته!</span>
+                </div>
+                <div class="floating-element float-3 glass-card">
+                    <i data-lucide="check-circle-2"></i>
+                    <span>هدف تکمیل شد ✅</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- موج پایین Hero -->
+        <div class="hero-wave">
+            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,80 1440,70 L1440,120 L0,120 Z" fill="#F5F0EB"/>
+            </svg>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════
+         🌟 بخش لوگوی برندها / اعتماد
+         ═══════════════════════════════════════ -->
+    <section class="trusted-by">
+        <div class="container">
+            <p class="trusted-label">مورد اعتماد بیش از <strong>۵۰۰</strong> مدرسه و آموزشگاه</p>
+            <div class="trusted-logos">
+                <div class="trusted-logo-item glass-card">📚 سنجش</div>
+                <div class="trusted-logo-item glass-card">🎓 قلم‌چی</div>
+                <div class="trusted-logo-item glass-card">📖 گاج</div>
+                <div class="trusted-logo-item glass-card">🏫 تیزهوشان</div>
+                <div class="trusted-logo-item glass-card">✏️ کانون</div>
+                <div class="trusted-logo-item glass-card">📝 مبتکران</div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════
+         ⚡ بخش امکانات (Features)
+         ═══════════════════════════════════════ -->
+    <section class="features" id="features">
+        <div class="container">
+            <!-- هدر بخش -->
+            <div class="section-header">
+                <span class="section-badge glass-card">⚡ امکانات</span>
+                <h2 class="section-title">همه چیزایی که برای <span class="gradient-text">موفقیت</span> لازم داری</h2>
+                <p class="section-desc">یه جعبه‌ابزار کامل برای مدیریت مطالعه، برنامه‌ریزی و رسیدن به اهداف</p>
+            </div>
+
+            <!-- گرید بنتو امکانات -->
+            <div class="features-bento">
+                <!-- کارت بزرگ ۱ -->
+                <div class="feature-card feature-large glass-card" data-aos="fade-up">
+                    <div class="feature-icon-wrapper pastel-blue-bg">
+                        <i data-lucide="bar-chart-3"></i>
+                    </div>
+                    <h3>داشبورد هوشمند</h3>
+                    <p>یه نگاه بنداز و ببین کجای مسیری! نمودارهای زیبا، آمار لحظه‌ای و تحلیل عملکرد هفتگی و ماهانه.</p>
+                    <div class="feature-preview neo-card">
+                        <div class="mini-chart-demo">
+                            <div class="mini-bar" style="height: 30%; background: #A8D8EA;"></div>
+                            <div class="mini-bar" style="height: 55%; background: #FFB7B2;"></div>
+                            <div class="mini-bar" style="height: 45%; background: #B5EAD7;"></div>
+                            <div class="mini-bar" style="height: 75%; background: #E2B4F5;"></div>
+                            <div class="mini-bar" style="height: 60%; background: #FFDAC1;"></div>
+                            <div class="mini-bar" style="height: 85%; background: #C7CEEA;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- کارت معمولی ۲ -->
+                <div class="feature-card glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon-wrapper pastel-pink-bg">
+                        <i data-lucide="calendar-check"></i>
+                    </div>
+                    <h3>برنامه‌ریزی درسی</h3>
+                    <p>برنامه هفتگی و ماهانه بچین و با یادآورهای هوشمند هیچوقت عقب نمون.</p>
+                </div>
+
+                <!-- کارت معمولی ۳ -->
+                <div class="feature-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon-wrapper pastel-green-bg">
+                        <i data-lucide="target"></i>
+                    </div>
+                    <h3>هدف‌گذاری</h3>
+                    <p>اهدافت رو مشخص کن و پیشرفتت رو لحظه‌به‌لحظه ببین. رسیدن به هدف هیچوقت انقدر شیرین نبوده!</p>
+                </div>
+
+                <!-- کارت معمولی ۴ -->
+                <div class="feature-card glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon-wrapper pastel-purple-bg">
+                        <i data-lucide="clock"></i>
+                    </div>
+                    <h3>ثبت ساعت مطالعه</h3>
+                    <p>با تایمر هوشمند، ساعات مطالعه‌ات رو دقیق ثبت کن و آمار روزانه‌ات رو ببین.</p>
+                </div>
+
+                <!-- کارت بزرگ ۵ -->
+                <div class="feature-card feature-large glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon-wrapper pastel-orange-bg">
+                        <i data-lucide="brain"></i>
+                    </div>
+                    <h3>تحلیل هوش مصنوعی</h3>
+                    <p>AI ما عملکردت رو تحلیل می‌کنه و بهت پیشنهادات شخصی‌سازی‌شده میده تا بهترین نتیجه رو بگیری.</p>
+                    <div class="feature-preview neo-card">
+                        <div class="ai-suggestion">
+                            <div class="ai-avatar">🤖</div>
+                            <div class="ai-text">
+                                <strong>پیشنهاد AI:</strong>
+                                <p>بر اساس عملکردت، بهتره ریاضی رو صبح‌ها بخونی! بازدهیت ۴۰٪ بیشتر میشه 📈</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- کارت معمولی ۶ -->
+                <div class="feature-card glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon-wrapper pastel-cyan-bg">
+                        <i data-lucide="users"></i>
+                    </div>
+                    <h3>رقابت دوستانه</h3>
+                    <p>با دوستات رقابت کن، لیدربورد رو فتح کن و مدال بگیر! 🏅</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════
+         📊 بخش آمار (Stats Counter)
+         ═══════════════════════════════════════ -->
+    <section class="stats-section" id="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card glass-card" data-aos="zoom-in">
+                    <div class="stat-icon pastel-blue-bg">
+                        <i data-lucide="users"></i>
+                    </div>
+                    <div class="stat-number" data-target="12580">0</div>
+                    <div class="stat-label">دانش‌آموز فعال</div>
+                </div>
+
+                <div class="stat-card glass-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="stat-icon pastel-pink-bg">
+                        <i data-lucide="clock"></i>
+                    </div>
+                    <div class="stat-number" data-target="458620">0</div>
+                    <div class="stat-label">ساعت مطالعه ثبت‌شده</div>
+                </div>
+
+                <div class="stat-card glass-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="stat-icon pastel-green-bg">
+                        <i data-lucide="target"></i>
+                    </div>
+                    <div class="stat-number" data-target="34250">0</div>
+                    <div class="stat-label">هدف تکمیل‌شده</div>
+                </div>
+
+                <div class="stat-card glass-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="stat-icon pastel-purple-bg">
+                        <i data-lucide="star"></i>
+                    </div>
+                    <div class="stat-number" data-target="98">0</div>
+                    <div class="stat-label">٪ رضایت کاربران</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════
+         💬 بخش نظرات کاربران (Testimonials)
+         ═══════════════════════════════════════ -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge glass-card">💬 نظرات</span>
+                <h2 class="section-title">بچه‌ها چی میگن درباره <span class="gradient-text">استادی‌کیت</span>؟</h2>
+                <p class="section-desc">نظر واقعی دانش‌آموزایی که با ما به هدفشون رسیدن</p>
+            </div>
+
+            <div class="testimonials-track" id="testimonialsTrack">
+                <!-- نظر ۱ -->
+                <div class="testimonial-card glass-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "از وقتی با استادی‌کیت شروع کردم، ساعت مطالعه‌ام از ۳ ساعت به ۸ ساعت رسید! واقعاً معجزه کرد 🚀"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" style="background: #A8D8EA;">م</div>
+                        <div>
+                            <strong>مریم احمدی</strong>
+                            <span>رتبه ۱۲۰ کنکور تجربی</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- نظر ۲ -->
+                <div class="testimonial-card glass-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "بهترین ابزاری که تا حالا استفاده کردم. برنامه‌ریزی درسی‌اش فوق‌العاده‌ست و نمیذاره از برنامه عقب بمونم."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" style="background: #FFB7B2;">ع</div>
+                        <div>
+                            <strong>علی محمدی</strong>
+                            <span>دانشجوی پزشکی تهران</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- نظر ۳ -->
+                <div class="testimonial-card glass-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "قبلاً هیچ نظمی تو مطالعه‌ام نداشتم. الان هر روز با انگیزه شروع می‌کنم. مرسی استادی‌کیت! 💪"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" style="background: #B5EAD7;">ز</div>
+                        <div>
+                            <strong>زهرا رضایی</strong>
+                            <span>رتبه ۵۵ کنکور ریاضی</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- نظر ۴ -->
+                <div class="testimonial-card glass-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "رقابت دوستانه‌اش عالیه! با رفیقام مسابقه گذاشتیم و همه‌مون پیشرفت کردیم. این یه بازی‌سازی واقعیه!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" style="background: #E2B4F5;">ح</div>
+                        <div>
+                            <strong>حسین کریمی</strong>
+                            <span>دانش‌آموز دوازدهم تجربی</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- نظر ۵ -->
+                <div class="testimonial-card glass-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">
+                        "من معلم هستم و به همه دانش‌آموزام استادی‌کیت رو پیشنهاد میدم. ابزار تحلیل عملکردش بی‌نظیره."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar" style="background: #FFDAC1;">ف</div>
+                        <div>
+                            <strong>فاطمه نوری</strong>
+                            <span>دبیر ریاضی - اصفهان</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- دکمه‌های ناوبری اسلایدر -->
+            <div class="testimonial-nav">
+                <button class="test-nav-btn" id="testPrev" aria-label="Previous">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+                <div class="test-dots" id="testDots"></div>
+                <button class="test-nav-btn" id="testNext" aria-label="Next">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════
+         💰 بخش تعرفه‌ها (Pricing)
+         ═══════════════════════════════════════ -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge glass-card">💰 تعرفه‌ها</span>
+                <h2 class="section-title">پلنی که بهت <span class="gradient-text">میاد</span> رو انتخاب کن</h2>
+                <p class="section-desc">همه پلن‌ها با ۷ روز تست رایگان شروع میشن!</p>
+            </div>
+
+            <!-- سوئیچ ماهانه / سالانه -->
+            <div class="pricing-toggle">
+                <span class="toggle-label active" id="monthlyLabel">ماهانه</span>
+                <button class="toggle-switch" id="pricingToggle" aria-label="Toggle pricing">
+                    <span class="toggle-knob"></span>
+                </button>
+                <span class="toggle-label" id="yearlyLabel">سالانه</span>
+                <span class="save-badge glass-card">۳۰٪ تخفیف 🎉</span>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- پلن رایگان -->
+                <div class="pricing-card glass-card" data-aos="fade-up">
+                    <div class="pricing-header">
+                        <span class="pricing-name">رایگان</span>
+                        <div class="pricing-price">
+                            <span class="price-amount" data-monthly="0" data-yearly="0">۰</span>
+                            <span class="price-currency">تومان</span>
+                        </div>
+                        <p class="pricing-desc">برای شروع و آشنایی</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check" class="check-icon"></i> ثبت تا ۳ ساعت مطالعه روزانه</li>
+                        <li><i data-lucide="check" class="check-icon"></i> ۱ برنامه درسی فعال</li>
+                        <li><i data-lucide="check" class="check-icon"></i> ۳ هدف همزمان</li>
+                        <li><i data-lucide="check" class="check-icon"></i> داشبورد ساده</li>
+                        <li class="disabled"><i data-lucide="x" class="x-icon"></i> تحلیل AI</li>
+                        <li class="disabled"><i data-lucide="x" class="x-icon"></i> رقابت دوستانه</li>
+                    </ul>
+                    <a href="#" class="btn-pricing">شروع رایگان</a>
+                </div>
+
+                <!-- پلن حرفه‌ای (محبوب) -->
+                <div class="pricing-card pricing-popular glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="popular-badge">محبوب‌ترین ⭐</div>
+                    <div class="pricing-header">
+                        <span class="pricing-name">حرفه‌ای</span>
+                        <div class="pricing-price">
+                            <span class="price-amount" data-monthly="89000" data-yearly="749000">۸۹,۰۰۰</span>
+                            <span class="price-currency">تومان / ماه</span>
+                        </div>
+                        <p class="pricing-desc">برای دانش‌آموزای جدی</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check" class="check-icon"></i> ثبت نامحدود ساعت مطالعه</li>
+                        <li><i data-lucide="check" class="check-icon"></i> برنامه‌های درسی نامحدود</li>
+                        <li><i data-lucide="check" class="check-icon"></i> اهداف نامحدود</li>
+                        <li><i data-lucide="check" class="check-icon"></i> داشبورد پیشرفته + نمودار</li>
+                        <li><i data-lucide="check" class="check-icon"></i> تحلیل AI هوشمند</li>
+                        <li><i data-lucide="check" class="check-icon"></i> رقابت دوستانه</li>
+                    </ul>
+                    <a href="#" class="btn-pricing btn-pricing-primary">شروع ۷ روز رایگان</a>
+                </div>
+
+                <!-- پلن سازمانی -->
+                <div class="pricing-card glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pricing-header">
+                        <span class="pricing-name">سازمانی</span>
+                        <div class="pricing-price">
+                            <span class="price-amount" data-monthly="249000" data-yearly="2090000">۲۴۹,۰۰۰</span>
+                            <span class="price-currency">تومان / ماه</span>
+                        </div>
+                        <p class="pricing-desc">برای مدارس و آموزشگاه‌ها</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i data-lucide="check" class="check-icon"></i> تمام امکانات حرفه‌ای</li>
+                        <li><i data-lucide="check" class="check-icon"></i> پنل مدیریت معلمان</li>
+                        <li><i data-lucide="check" class="check-icon"></i> گزارش‌گیری پیشرفته</li>
+                        <li><i data-lucide="check" class="check-icon"></i> پشتیبانی اختصاصی ۲۴/۷</li>
+                        <li><i data-lucide="check" class="check-icon"></i> API اختصاصی</li>
+                        <li><i data-lucide="check" class="check-icon"></i> برندینگ سفارشی</li>
+                    </ul>
+                    <a href="#" class="btn-pricing">تماس با فروش</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════
+         ❓ بخش سوالات متداول (FAQ)
+         ═══════════════════════════════════════ -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge glass-card">❓ سوالات</span>
+                <h2 class="section-title">سوالات <span class="gradient-text">متداول</span></h2>
+                <p class="section-desc">جواب سوالاتی که شاید ذهنتو درگیر کرده باشه</p>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item glass-card" data-aos="fade-up">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>استادی‌کیت رایگانه؟</span>
+                        <i data-lucide="plus" class="faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>بله! پلن رایگان ما برای همیشه رایگانه و امکانات پایه‌ای رو در اختیارت میذاره. اگه بخوای امکانات بیشتری داشته باشی، می‌تونی پلن حرفه‌ای رو با ۷ روز تست رایگان امتحان کنی. 🎁</p>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card" data-aos="fade-up" data-aos-delay="50">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>آیا اطلاعاتم امنه؟</span>
+                        <i data-lucide="plus" class="faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>قطعاً! ما از Supabase با RLS (Row Level Security) استفاده می‌کنیم. یعنی هر کاربر فقط دیتای خودشو می‌بینه. داده‌هات رمزنگاری شده و در سرورهای امن نگهداری میشن. 🔒</p>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>روی موبایل هم کار میکنه؟</span>
+                        <i data-lucide="plus" class="faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>بله! استادی‌کیت کاملاً ریسپانسیو طراحی شده و روی هر دستگاهی (موبایل، تبلت، لپ‌تاپ) عالی کار می‌کنه. اپ موبایلمون هم به‌زودی میاد! 📱</p>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card" data-aos="fade-up" data-aos-delay="150">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>می‌تونم اکانتمو لغو کنم؟</span>
+                        <i data-lucide="plus" class="faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>بله! هر زمان بخوای می‌تونی اشتراکت رو لغو کنی. بدون قرارداد، بدون جریمه. ما به آزادی کاربر احترام میذاریم. ✌️</p>
+                    </div>
+                </div>
+
+                <div class="faq-item glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>تحلیل AI چطور کار میکنه؟</span>
+                        <i data-lucide="plus" class="faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>هوش مصنوعی ما الگوهای مطالعه‌ات رو تحلیل می‌کنه (بهترین ساعت مطالعه، دروس قوی و ضعیف، روند پیشرفت) و بهت پیشنهادات شخصی‌سازی‌شده میده. مثل یه مشاور تحصیلی ۲۴ ساعته! 🤖</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════
+         📩 بخش CTA نهایی
+         ═══════════════════════════════════════ -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-card glass-card">
+                <div class="cta-bg-shapes">
+                    <div class="cta-shape shape-1"></div>
+                    <div class="cta-shape shape-2"></div>
+                    <div class="cta-shape shape-3"></div>
+                </div>
+                <div class="cta-content">
+                    <h2>آماده‌ای مطالعه‌اتو <span class="gradient-text">متحول</span> کنی؟</h2>
+                    <p>همین الان ثبت‌نام کن و ۷ روز تمام امکانات حرفه‌ای رو رایگان تجربه کن!</p>
+                    <div class="cta-actions">
+                        <a href="#" class="btn-primary btn-large">
+                            <i data-lucide="rocket"></i>
+                            <span>شروع رایگان</span>
+                        </a>
+                        <p class="cta-note">بدون نیاز به کارت بانکی • لغو هر زمان</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════
+         🦶 فوتر (Footer)
+         ═══════════════════════════════════════ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- ستون ۱: درباره -->
+                <div class="footer-col footer-about">
+                    <a href="#" class="footer-logo">
+                        <div class="logo-icon"><i data-lucide="book-open-check"></i></div>
+                        <span class="logo-text">Study<span class="logo-highlight">Kit</span></span>
+                    </a>
+                    <p>پلتفرم هوشمند مدیریت مطالعه و برنامه‌ریزی درسی. ساخته شده با ❤️ در ایران.</p>
+                    <div class="footer-socials">
+                        <a href="#" aria-label="Instagram" class="social-link neo-card"><i data-lucide="instagram"></i></a>
+                        <a href="#" aria-label="Telegram" class="social-link neo-card"><i data-lucide="send"></i></a>
+                        <a href="#" aria-label="Twitter" class="social-link neo-card"><i data-lucide="twitter"></i></a>
+                        <a href="#" aria-label="YouTube" class="social-link neo-card"><i data-lucide="youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- ستون ۲: دسترسی سریع -->
+                <div class="footer-col">
+                    <h4>دسترسی سریع</h4>
+                    <ul>
+                        <li><a href="#features">امکانات</a></li>
+                        <li><a href="#pricing">تعرفه‌ها</a></li>
+                        <li><a href="#faq">سوالات متداول</a></li>
+                        <li><a href="#">بلاگ</a></li>
+                    </ul>
+                </div>
+
+                <!-- ستون ۳: قانونی -->
+                <div class="footer-col">
+                    <h4>قوانین</h4>
+                    <ul>
+                        <li><a href="#">حریم خصوصی</a></li>
+                        <li><a href="#">شرایط استفاده</a></li>
+                        <li><a href="#">بازگشت وجه</a></li>
+                        <li><a href="#">کوکی‌ها</a></li>
+                    </ul>
+                </div>
+
+                <!-- ستون ۴: تماس -->
+                <div class="footer-col">
+                    <h4>ارتباط با ما</h4>
+                    <ul class="footer-contact">
+                        <li><i data-lucide="mail"></i> info@studykit.ir</li>
+                        <li><i data-lucide="phone"></i> ۰۲۱-۱۲۳۴۵۶۷۸</li>
+                        <li><i data-lucide="map-pin"></i> تهران، خیابان ولیعصر</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© ۱۴۰۴ موسسه آموزشی استادی‌کیت. تمامی حقوق محفوظ است.</p>
+                <p class="footer-made">ساخته شده با ☕ و کمی دیوانگی</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- دکمه برگشت به بالا -->
+    <button class="back-to-top neo-card" id="backToTop" aria-label="Back to top">
+        <i data-lucide="arrow-up"></i>
+    </button>
+
+    <!-- اسکریپت اصلی -->
+    <script src="script.js"></script>
+</body>
+</html>
