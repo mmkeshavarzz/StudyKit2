@@ -1,2 +1,2 @@
-# StudyKit2
+# StudyKit
 ابزار همه چی تموم کنکور
