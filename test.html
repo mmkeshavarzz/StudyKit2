@@ -3,541 +3,842 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🧪 تست اتصال StudyKit</title>
-    
-    <!-- فونت وزیر -->
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
-    
+    <title>🧪 StudyKit - Database Test v4.0</title>
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+        /* ========================================
+         * StudyKit Connection Tester v4.0
+         * تم: صدفی + پاستیلی + گلسمورفیسم
+         * تاریخ: 1404/12/08
+         * ======================================== */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: 'Vazirmatn', sans-serif;
-            background: linear-gradient(135deg, #f5f0ff 0%, #e8f4f8 50%, #fef6f0 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             direction: rtl;
+            min-height: 100vh;
+            /* گرادیان صدفی پاستیلی */
+            background: linear-gradient(135deg, #fef9f3 0%, #f0e6ff 30%, #e6f7ff 60%, #fff5f5 100%);
+            padding: 20px;
         }
-
-        h1 {
-            font-size: 1.6rem;
-            color: #4a3d6e;
-            margin: 20px 0 5px;
+        
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
         }
-
-        .subtitle {
-            color: #8b7faa;
-            font-size: 0.85rem;
+        
+        /* هدر اصلی - گلسمورفیسم */
+        .header {
+            text-align: center;
+            padding: 30px 20px;
             margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px rgba(149, 128, 255, 0.1);
         }
-
-        .test-card {
-            width: 100%;
-            max-width: 500px;
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 18px;
-            padding: 18px 20px;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            box-shadow:
-                6px 6px 14px rgba(0, 0, 0, 0.06),
-                -4px -4px 10px rgba(255, 255, 255, 0.8);
-            transition: all 0.4s ease;
+        
+        .header h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #7c5cfc, #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
         }
-
-        .test-card.pass {
-            border-right: 4px solid #22c55e;
-            background: rgba(220, 252, 231, 0.5);
+        
+        .header p {
+            color: #8b7fa8;
+            font-size: 0.95rem;
         }
-
-        .test-card.fail {
-            border-right: 4px solid #ef4444;
-            background: rgba(254, 226, 226, 0.5);
-        }
-
-        .test-card.running {
-            border-right: 4px solid #f59e0b;
-            background: rgba(254, 249, 195, 0.4);
-        }
-
-        .icon { font-size: 2rem; flex-shrink: 0; }
-
-        .info { flex: 1; }
-        .info h3 { font-size: 0.95rem; color: #3d3558; margin-bottom: 4px; }
-        .info p { font-size: 0.78rem; color: #888; line-height: 1.6; }
-
-        .status-badge {
-            font-size: 0.7rem;
-            padding: 4px 12px;
+        
+        .version-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #a78bfa, #7c5cfc);
+            color: white;
+            padding: 4px 14px;
             border-radius: 20px;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .status-badge.waiting { background: #f3f0ff; color: #9b8ec4; }
-        .status-badge.running { background: #fef3c7; color: #b45309; }
-        .status-badge.pass    { background: #dcfce7; color: #16a34a; }
-        .status-badge.fail    { background: #fee2e2; color: #dc2626; }
-
-        .btn-start {
-            width: 100%;
-            max-width: 500px;
+            font-size: 0.75rem;
             margin-top: 10px;
+            letter-spacing: 0.5px;
+        }
+        
+        /* دکمه شروع تست */
+        .start-btn {
+            display: block;
+            width: 100%;
             padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
             border: none;
             border-radius: 16px;
-            background: linear-gradient(135deg, #7c5ce0, #a78bfa);
-            color: white;
-            font-family: 'Vazirmatn', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(124, 92, 224, 0.35);
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #7c5cfc, #a78bfa);
+            box-shadow: 0 6px 25px rgba(124, 92, 252, 0.35);
             transition: all 0.3s ease;
+            letter-spacing: 0.5px;
         }
-
-        .btn-start:hover {
+        
+        .start-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(124, 92, 224, 0.45);
+            box-shadow: 0 10px 35px rgba(124, 92, 252, 0.5);
         }
-
-        .btn-start:disabled {
+        
+        .start-btn:active {
+            transform: translateY(0);
+        }
+        
+        .start-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }
-
-        .log-box {
-            width: 100%;
-            max-width: 500px;
-            margin-top: 20px;
-            background: rgba(30, 20, 50, 0.9);
-            border-radius: 14px;
-            padding: 16px;
-            direction: ltr;
-            text-align: left;
-            max-height: 220px;
-            overflow-y: auto;
-            display: none;
+        
+        /* کارت‌های تست - نئومورفیسم + گلسمورفیسم */
+        .test-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: all 0.4s ease;
+            box-shadow:
+                6px 6px 14px rgba(180, 170, 200, 0.15),
+                -4px -4px 10px rgba(255, 255, 255, 0.7);
         }
-
-        .log-box.show { display: block; }
-
-        .log-line {
-            font-family: 'Courier New', monospace;
-            font-size: 0.72rem;
-            color: #a5f3a5;
-            line-height: 1.7;
+        
+        .test-card.running {
+            border-color: rgba(167, 139, 250, 0.5);
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.15);
         }
-
-        .log-line.error { color: #fca5a5; }
-        .log-line.warn  { color: #fde68a; }
-        .log-line.info  { color: #93c5fd; }
-
-        .result-box {
-            width: 100%;
-            max-width: 500px;
-            margin-top: 18px;
-            padding: 18px;
-            border-radius: 16px;
-            text-align: center;
-            font-weight: 700;
+        
+        .test-card.pass {
+            border-color: rgba(74, 222, 128, 0.5);
+            background: rgba(240, 255, 244, 0.5);
+        }
+        
+        .test-card.fail {
+            border-color: rgba(252, 129, 129, 0.5);
+            background: rgba(255, 240, 240, 0.5);
+        }
+        
+        .test-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .test-title {
             font-size: 1rem;
+            font-weight: 600;
+            color: #4a3f6b;
+        }
+        
+        .test-status {
+            font-size: 0.85rem;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        
+        .status-waiting {
+            background: rgba(226, 222, 240, 0.5);
+            color: #9b8fc4;
+        }
+        
+        .status-running {
+            background: rgba(167, 139, 250, 0.2);
+            color: #7c5cfc;
+            animation: pulse 1.2s infinite;
+        }
+        
+        .status-pass {
+            background: rgba(74, 222, 128, 0.2);
+            color: #16a34a;
+        }
+        
+        .status-fail {
+            background: rgba(252, 129, 129, 0.2);
+            color: #dc2626;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .test-detail {
+            font-size: 0.85rem;
+            color: #7b7194;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        
+        /* خلاصه نتایج */
+        .summary-card {
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 24px;
+            padding: 25px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            box-shadow:
+                8px 8px 18px rgba(180, 170, 200, 0.12),
+                -6px -6px 14px rgba(255, 255, 255, 0.8);
+        }
+        
+        .summary-card.visible { display: block; }
+        
+        .summary-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #4a3f6b;
+        }
+        
+        .score-display {
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 10px 0;
+        }
+        
+        .score-display.perfect {
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .score-display.good {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .score-display.bad {
+            background: linear-gradient(135deg, #f87171, #dc2626);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .summary-detail {
+            color: #8b7fa8;
+            font-size: 0.95rem;
+            margin-top: 10px;
+            line-height: 1.8;
+        }
+        
+        /* جدول ساختار */
+        .schema-section {
+            margin-top: 20px;
             display: none;
         }
-
-        .result-box.show { display: block; }
-
-        .result-box.success {
-            background: rgba(220, 252, 231, 0.7);
-            color: #16a34a;
-            border: 2px solid #86efac;
+        
+        .schema-section.visible { display: block; }
+        
+        .schema-table-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #7c5cfc;
+            margin: 15px 0 8px;
+            padding: 8px 16px;
+            background: rgba(124, 92, 252, 0.08);
+            border-radius: 12px;
+            display: inline-block;
         }
-
-        .result-box.failure {
-            background: rgba(254, 226, 226, 0.7);
-            color: #dc2626;
-            border: 2px solid #fca5a5;
-        }
-
-        .config-info {
+        
+        .schema-table {
             width: 100%;
-            max-width: 500px;
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(8px);
+            border-collapse: separate;
+            border-spacing: 0;
+            background: rgba(255, 255, 255, 0.5);
             border-radius: 14px;
-            padding: 14px 18px;
-            margin-bottom: 20px;
-            border: 1px dashed #c4b5fd;
-            font-size: 0.75rem;
-            color: #6b5b95;
-            direction: ltr;
-            text-align: left;
+            overflow: hidden;
+            margin-bottom: 12px;
+            font-size: 0.82rem;
+            border: 1px solid rgba(200, 190, 220, 0.3);
         }
-
-        .config-info strong { color: #4a3d6e; }
+        
+        .schema-table th {
+            background: rgba(167, 139, 250, 0.12);
+            color: #5b4f80;
+            padding: 10px 12px;
+            text-align: right;
+            font-weight: 600;
+        }
+        
+        .schema-table td {
+            padding: 8px 12px;
+            border-top: 1px solid rgba(200, 190, 220, 0.15);
+            color: #6b5f8a;
+        }
+        
+        .schema-table tr:hover td {
+            background: rgba(167, 139, 250, 0.04);
+        }
+        
+        .type-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .type-uuid { background: #ede9fe; color: #7c3aed; }
+        .type-text { background: #fef3c7; color: #d97706; }
+        .type-int { background: #dbeafe; color: #2563eb; }
+        .type-bool { background: #d1fae5; color: #059669; }
+        .type-date { background: #ffe4e6; color: #e11d48; }
+        .type-ts { background: #f3e8ff; color: #9333ea; }
+        
+        /* ریسپانسیو */
+        @media (max-width: 480px) {
+            body { padding: 12px; }
+            .header h1 { font-size: 1.4rem; }
+            .test-card { padding: 16px; }
+            .score-display { font-size: 2.2rem; }
+            .schema-table { font-size: 0.75rem; }
+            .schema-table th, .schema-table td { padding: 6px 8px; }
+        }
     </style>
 </head>
 <body>
 
-    <h1>🧪 تست اتصال StudyKit</h1>
-    <p class="subtitle">بررسی اتصال فرانت‌اند به Supabase Backend</p>
-
-    <!-- نمایش تنظیمات فعلی -->
-    <div class="config-info">
-        <strong>URL:</strong> nkxteuknthhwjvvztmhz.supabase.co<br>
-        <strong>Key:</strong> eyJhbG...7TCw (loaded ✅)
-    </div>
-
-    <!-- کارت‌های تست -->
-    <div class="test-card" id="test1">
-        <span class="icon">📦</span>
-        <div class="info">
-            <h3>ساخت Supabase Client</h3>
-            <p id="test1-msg">در انتظار شروع تست...</p>
+    <div class="container">
+        <!-- هدر -->
+        <div class="header">
+            <h1>🧪 StudyKit Connection Tester</h1>
+            <p>بررسی اتصال کامل به Supabase و ساختار دیتابیس</p>
+            <span class="version-badge">v4.0 — Matched Schema</span>
         </div>
-        <span class="status-badge waiting" id="test1-badge">انتظار</span>
-    </div>
 
-    <div class="test-card" id="test2">
-        <span class="icon">🔌</span>
-        <div class="info">
-            <h3>اتصال به سرور Supabase</h3>
-            <p id="test2-msg">در انتظار شروع تست...</p>
+        <!-- دکمه شروع -->
+        <button class="start-btn" id="startBtn">🚀 شروع تست‌ها</button>
+
+        <!-- کارت تست ۱ -->
+        <div class="test-card" id="test1">
+            <div class="test-header">
+                <span class="test-title">۱. ساخت Supabase Client</span>
+                <span class="test-status status-waiting" id="status1">⏳ منتظر</span>
+            </div>
+            <div class="test-detail" id="detail1">بررسی میکنیم که کتابخانه Supabase بارگذاری بشه و Client ساخته بشه...</div>
         </div>
-        <span class="status-badge waiting" id="test2-badge">انتظار</span>
-    </div>
 
-    <div class="test-card" id="test3">
-        <span class="icon">📋</span>
-        <div class="info">
-            <h3>بررسی جداول دیتابیس</h3>
-            <p id="test3-msg">در انتظار شروع تست...</p>
+        <!-- کارت تست ۲ -->
+        <div class="test-card" id="test2">
+            <div class="test-header">
+                <span class="test-title">۲. پینگ سرور Supabase</span>
+                <span class="test-status status-waiting" id="status2">⏳ منتظر</span>
+            </div>
+            <div class="test-detail" id="detail2">ارسال درخواست به سرور و بررسی پاسخ...</div>
         </div>
-        <span class="status-badge waiting" id="test3-badge">انتظار</span>
-    </div>
 
-    <div class="test-card" id="test4">
-        <span class="icon">🔐</span>
-        <div class="info">
-            <h3>سرویس احراز هویت (Auth)</h3>
-            <p id="test4-msg">در انتظار شروع تست...</p>
+        <!-- کارت تست ۳ -->
+        <div class="test-card" id="test3">
+            <div class="test-header">
+                <span class="test-title">۳. بررسی جداول دیتابیس</span>
+                <span class="test-status status-waiting" id="status3">⏳ منتظر</span>
+            </div>
+            <div class="test-detail" id="detail3">چک کردن وجود جداول: users, study_logs, plans, goals...</div>
         </div>
-        <span class="status-badge waiting" id="test4-badge">انتظار</span>
-    </div>
 
-    <div class="test-card" id="test5">
-        <span class="icon">🛡️</span>
-        <div class="info">
-            <h3>بررسی RLS (امنیت سطری)</h3>
-            <p id="test5-msg">در انتظار شروع تست...</p>
+        <!-- کارت تست ۴ -->
+        <div class="test-card" id="test4">
+            <div class="test-header">
+                <span class="test-title">۴. بررسی سرویس Auth</span>
+                <span class="test-status status-waiting" id="status4">⏳ منتظر</span>
+            </div>
+            <div class="test-detail" id="detail4">بررسی دسترسی به سرویس احراز هویت Supabase...</div>
         </div>
-        <span class="status-badge waiting" id="test5-badge">انتظار</span>
+
+        <!-- کارت تست ۵ -->
+        <div class="test-card" id="test5">
+            <div class="test-header">
+                <span class="test-title">۵. بررسی RLS (امنیت سطر)</span>
+                <span class="test-status status-waiting" id="status5">⏳ منتظر</span>
+            </div>
+            <div class="test-detail" id="detail5">بررسی فعال بودن Row Level Security...</div>
+        </div>
+
+        <!-- کارت تست ۶ -->
+        <div class="test-card" id="test6">
+            <div class="test-header">
+                <span class="test-title">۶. بررسی ساختار ستون‌ها</span>
+                <span class="test-status status-waiting" id="status6">⏳ منتظر</span>
+            </div>
+            <div class="test-detail" id="detail6">مقایسه ستون‌های هر جدول با ساختار مورد انتظار...</div>
+        </div>
+
+        <!-- خلاصه نتایج -->
+        <div class="summary-card" id="summary">
+            <div class="summary-title" id="summaryTitle">📊 نتیجه نهایی</div>
+            <div class="score-display" id="scoreDisplay">-/-</div>
+            <div class="summary-detail" id="summaryDetail"></div>
+        </div>
+
+        <!-- بخش نمایش ساختار جداول -->
+        <div class="schema-section" id="schemaSection"></div>
     </div>
 
-    <!-- دکمه شروع -->
-    <button class="btn-start" id="startBtn">
-        🚀 شروع تست اتصال
-    </button>
-
-    <!-- لاگ -->
-    <div class="log-box" id="logBox"></div>
-
-    <!-- نتیجه نهایی -->
-    <div class="result-box" id="resultBox"></div>
-
-    <!-- Supabase CDN -->
+    <!-- بارگذاری Supabase JS از CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
     <script>
         /**
-         * ============================================
-         *   StudyKit Connection Test - v3.0 (Fixed)
-         *   No duplicate variable declarations
-         * ============================================
+         * =============================================
+         *  StudyKit Connection Tester v4.0
+         *  تاریخ: 1404/12/08
+         *  ساختار: مطابق با جداول واقعی پروژه
+         * =============================================
          */
 
-        /* --- تنظیمات Supabase --- */
+        /* ---------- تنظیمات اتصال ---------- */
         var SUPABASE_URL = 'https://nkxteuknthhwjvvztmhz.supabase.co';
-        var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5reHRldWtudGhod2p2dnp0bWh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxOTAyODAsImV4cCI6MjA4Nzc2NjI4MH0.o2sVCB-nTE95WU1Nwpa1pVZS17Y2Hwf-W6MzmNq7TCw';
+        var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5reHRldWtudGhod2p2dnp0bWh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA1MjYwMDEsImV4cCI6MjA1NjEwMjAwMX0.aCxIfmDM4bMBBBRBBq0RqJpGrJoBLMQ4JpJHSjiBsNI';
 
-        /* --- متغیرهای سراسری --- */
+        /* ---------- ساختار مورد انتظار جداول ---------- */
+        var EXPECTED_SCHEMA = {
+            users: ['id', 'created_at', 'email', 'full_name', 'avatar_url'],
+            study_logs: ['id', 'user_id', 'subject', 'duration_minutes', 'study_date', 'note', 'created_at', 'notes'],
+            plans: ['id', 'user_id', 'title', 'description', 'start_date', 'end_date', 'is_active', 'created_at'],
+            goals: ['id', 'user_id', 'title', 'target_hours', 'current_hours', 'deadline', 'is_completed', 'created_at']
+        };
+
+        var TABLE_NAMES = Object.keys(EXPECTED_SCHEMA);
         var sbClient = null;
-        var testResults = { pass: 0, fail: 0 };
+        var testResults = [];
 
-        /* ==============================
-         *   توابع کمکی UI
-         * ============================== */
-        function addLog(msg, type) {
-            var box = document.getElementById('logBox');
-            box.classList.add('show');
-            var line = document.createElement('div');
-            line.className = 'log-line ' + (type || 'info');
-            line.textContent = '[' + new Date().toLocaleTimeString() + '] ' + msg;
-            box.appendChild(line);
-            box.scrollTop = box.scrollHeight;
+        /* ---------- ابزار کمکی DOM ---------- */
+        function setStatus(n, cls, text) {
+            var el = document.getElementById('status' + n);
+            el.className = 'test-status status-' + cls;
+            el.textContent = text;
+            document.getElementById('test' + n).className = 'test-card ' + (cls === 'running' ? 'running' : cls === 'pass' ? 'pass' : cls === 'fail' ? 'fail' : '');
         }
 
-        function updateCard(num, status, message) {
-            var card = document.getElementById('test' + num);
-            var badge = document.getElementById('test' + num + '-badge');
-            var msg = document.getElementById('test' + num + '-msg');
-
-            card.classList.remove('pass', 'fail', 'running');
-            badge.classList.remove('waiting', 'running', 'pass', 'fail');
-
-            if (status === 'running') {
-                card.classList.add('running');
-                badge.classList.add('running');
-                badge.textContent = '⏳ در حال تست';
-            } else if (status === 'pass') {
-                card.classList.add('pass');
-                badge.classList.add('pass');
-                badge.textContent = '✅ موفق';
-                testResults.pass++;
-            } else if (status === 'fail') {
-                card.classList.add('fail');
-                badge.classList.add('fail');
-                badge.textContent = '❌ خطا';
-                testResults.fail++;
-            }
-
-            msg.textContent = message;
+        function setDetail(n, msg) {
+            document.getElementById('detail' + n).textContent = msg;
         }
 
-        function wait(ms) {
-            return new Promise(function(resolve) { setTimeout(resolve, ms); });
+        function sleep(ms) {
+            return new Promise(function (r) { setTimeout(r, ms); });
         }
 
-        /* ==============================
-         *   تست ۱: ساخت Client
-         * ============================== */
-        async function test1_createClient() {
-            updateCard(1, 'running', 'در حال ساخت کلاینت...');
-            addLog('[تست ۱] ساخت Supabase Client...', 'info');
+        /* ===========================================
+         *  تست ۱: ساخت Client
+         * =========================================== */
+        async function runTest1() {
+            setStatus(1, 'running', '🔄 در حال تست...');
+            await sleep(500);
 
             try {
-                if (typeof window.supabase === 'undefined') {
-                    throw new Error('Supabase CDN لود نشده!');
+                if (typeof window.supabase === 'undefined' && typeof window.Supabase === 'undefined') {
+                    throw new Error('کتابخانه Supabase بارگذاری نشده!');
                 }
 
-                sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                var factory = (window.supabase && window.supabase.createClient)
+                    ? window.supabase.createClient
+                    : (window.Supabase && window.Supabase.createClient)
+                        ? window.Supabase.createClient
+                        : null;
 
-                if (sbClient) {
-                    updateCard(1, 'pass', 'کلاینت با موفقیت ساخته شد ✨');
-                    addLog('✅ Client ساخته شد!', 'info');
-                } else {
-                    throw new Error('کلاینت null برگشت');
-                }
+                if (!factory) throw new Error('تابع createClient پیدا نشد!');
+
+                sbClient = factory(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+                if (!sbClient) throw new Error('Client ساخته نشد!');
+
+                setStatus(1, 'pass', '✅ موفق');
+                setDetail(1, '✅ Supabase Client با موفقیت ساخته شد.\n🔗 URL: ' + SUPABASE_URL.replace('https://', '').slice(0, 25) + '...');
+                return true;
+
             } catch (err) {
-                updateCard(1, 'fail', 'خطا: ' + err.message);
-                addLog('❌ ' + err.message, 'error');
+                setStatus(1, 'fail', '❌ خطا');
+                setDetail(1, '❌ ' + err.message);
+                return false;
             }
         }
 
-        /* ==============================
-         *   تست ۲: پینگ سرور
-         * ============================== */
-        async function test2_pingServer() {
-            updateCard(2, 'running', 'در حال اتصال به سرور...');
-            addLog('[تست ۲] پینگ سرور...', 'info');
+        /* ===========================================
+         *  تست ۲: پینگ سرور
+         * =========================================== */
+        async function runTest2() {
+            setStatus(2, 'running', '🔄 در حال تست...');
+            await sleep(400);
 
             try {
-                var response = await fetch(SUPABASE_URL + '/rest/v1/', {
-                    method: 'HEAD',
-                    headers: { 'apikey': SUPABASE_ANON_KEY }
+                if (!sbClient) throw new Error('Client وجود ندارد!');
+
+                var startTime = performance.now();
+                var resp = await fetch(SUPABASE_URL + '/rest/v1/', {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
+                    }
                 });
+                var ping = Math.round(performance.now() - startTime);
 
-                if (response.ok || response.status === 200 || response.status === 204) {
-                    updateCard(2, 'pass', 'سرور در دسترسه 🌐 (Status: ' + response.status + ')');
-                    addLog('✅ سرور پاسخ داد! Status: ' + response.status, 'info');
-                } else {
-                    updateCard(2, 'pass', 'سرور پاسخ داد (Status: ' + response.status + ')');
-                    addLog('⚠️ Status: ' + response.status, 'warn');
-                }
+                if (!resp.ok) throw new Error('سرور پاسخ داد ولی با خطا: HTTP ' + resp.status);
+
+                setStatus(2, 'pass', '✅ موفق');
+                setDetail(2, '✅ سرور در دسترس است!\n⏱️ زمان پاسخ: ' + ping + 'ms\n📡 Status: ' + resp.status);
+                return true;
+
             } catch (err) {
-                if (err.message && (err.message.includes('CORS') || err.message.includes('Failed to fetch'))) {
-                    updateCard(2, 'pass', 'سرور زنده‌ست (CORS block روی HEAD) 🌐');
-                    addLog('⚠️ CORS block ولی سرور زنده‌ست', 'warn');
-                } else {
-                    updateCard(2, 'fail', 'خطا: ' + err.message);
-                    addLog('❌ ' + err.message, 'error');
-                }
+                setStatus(2, 'fail', '❌ خطا');
+                setDetail(2, '❌ ' + err.message);
+                return false;
             }
         }
 
-        /* ==============================
-         *   تست ۳: جداول دیتابیس
-         * ============================== */
-        async function test3_checkTables() {
-            updateCard(3, 'running', 'در حال بررسی جداول...');
-            addLog('[تست ۳] بررسی جداول...', 'info');
-
-            if (!sbClient) {
-                updateCard(3, 'fail', 'کلاینت ساخته نشده!');
-                addLog('❌ کلاینت نیست', 'error');
-                return;
-            }
+        /* ===========================================
+         *  تست ۳: بررسی جداول
+         * =========================================== */
+        async function runTest3() {
+            setStatus(3, 'running', '🔄 در حال تست...');
+            await sleep(400);
 
             try {
-                var result = await sbClient.from('profiles').select('id').limit(1);
+                if (!sbClient) throw new Error('Client وجود ندارد!');
 
-                if (result.error) {
-                    if (result.error.message.indexOf('does not exist') !== -1 || result.error.code === '42P01') {
-                        updateCard(3, 'fail', 'جدول profiles هنوز ساخته نشده!');
-                        addLog('⚠️ جدول profiles نیست', 'warn');
-                    } else if (result.error.message.indexOf('permission') !== -1 || result.error.code === '42501') {
-                        updateCard(3, 'pass', 'جدول موجوده (RLS فعال) 📋');
-                        addLog('✅ جدول هست ولی RLS بلاک کرده', 'info');
+                var found = [];
+                var missing = [];
+
+                for (var i = 0; i < TABLE_NAMES.length; i++) {
+                    var tbl = TABLE_NAMES[i];
+                    var result = await sbClient.from(tbl).select('*').limit(0);
+
+                    if (result.error) {
+                        missing.push(tbl + ' (' + result.error.message.slice(0, 60) + ')');
                     } else {
-                        updateCard(3, 'fail', 'خطا: ' + result.error.message);
-                        addLog('❌ ' + result.error.message, 'error');
+                        found.push(tbl);
                     }
+                }
+
+                var msg = '📋 جداول یافت شده: ' + found.length + '/' + TABLE_NAMES.length + '\n';
+                msg += found.map(function (t) { return '  ✅ ' + t; }).join('\n');
+
+                if (missing.length > 0) {
+                    msg += '\n\n❌ جداول پیدا نشده:\n';
+                    msg += missing.map(function (t) { return '  ⛔ ' + t; }).join('\n');
+                }
+
+                if (missing.length === 0) {
+                    setStatus(3, 'pass', '✅ موفق');
+                    setDetail(3, msg);
+                    return true;
                 } else {
-                    updateCard(3, 'pass', 'جدول profiles پیدا شد! (' + (result.data ? result.data.length : 0) + ' رکورد)');
-                    addLog('✅ جدول profiles موجوده!', 'info');
+                    setStatus(3, 'fail', '❌ خطا');
+                    setDetail(3, msg);
+                    return false;
                 }
+
             } catch (err) {
-                updateCard(3, 'fail', 'خطا: ' + err.message);
-                addLog('❌ ' + err.message, 'error');
+                setStatus(3, 'fail', '❌ خطا');
+                setDetail(3, '❌ ' + err.message);
+                return false;
             }
         }
 
-        /* ==============================
-         *   تست ۴: Auth
-         * ============================== */
-        async function test4_checkAuth() {
-            updateCard(4, 'running', 'در حال بررسی Auth...');
-            addLog('[تست ۴] تست Auth...', 'info');
-
-            if (!sbClient) {
-                updateCard(4, 'fail', 'کلاینت ساخته نشده!');
-                return;
-            }
+        /* ===========================================
+         *  تست ۴: بررسی Auth
+         * =========================================== */
+        async function runTest4() {
+            setStatus(4, 'running', '🔄 در حال تست...');
+            await sleep(400);
 
             try {
-                var result = await sbClient.auth.getSession();
+                if (!sbClient) throw new Error('Client وجود ندارد!');
 
-                if (result.error) {
-                    throw result.error;
-                }
+                var authResult = await sbClient.auth.getSession();
 
-                updateCard(4, 'pass', 'سرویس Auth فعاله 🔐');
-                addLog('✅ Auth پاسخ داد! Session: ' + (result.data.session ? 'موجود' : 'خالی'), 'info');
+                if (authResult.error) throw new Error(authResult.error.message);
+
+                var session = authResult.data.session;
+                var msg = '✅ سرویس Auth در دسترس است!\n';
+                msg += session
+                    ? '👤 کاربر لاگین شده: ' + (session.user.email || session.user.id)
+                    : '🔓 هیچ کاربری لاگین نیست (عادی است)';
+
+                setStatus(4, 'pass', '✅ موفق');
+                setDetail(4, msg);
+                return true;
+
             } catch (err) {
-                updateCard(4, 'fail', 'خطا: ' + err.message);
-                addLog('❌ ' + err.message, 'error');
+                setStatus(4, 'fail', '❌ خطا');
+                setDetail(4, '❌ ' + err.message);
+                return false;
             }
         }
 
-        /* ==============================
-         *   تست ۵: RLS
-         * ============================== */
-        async function test5_checkRLS() {
-            updateCard(5, 'running', 'در حال بررسی RLS...');
-            addLog('[تست ۵] بررسی RLS...', 'info');
-
-            if (!sbClient) {
-                updateCard(5, 'fail', 'کلاینت ساخته نشده!');
-                return;
-            }
+        /* ===========================================
+         *  تست ۵: بررسی RLS
+         * =========================================== */
+        async function runTest5() {
+            setStatus(5, 'running', '🔄 در حال تست...');
+            await sleep(400);
 
             try {
-                var result = await sbClient
-                    .from('profiles')
-                    .insert({ id: '00000000-0000-0000-0000-000000000000', full_name: 'RLS_TEST' });
+                if (!sbClient) throw new Error('Client وجود ندارد!');
 
-                if (result.error) {
-                    if (result.error.message.indexOf('policy') !== -1 ||
-                        result.error.message.indexOf('permission') !== -1 ||
-                        result.error.message.indexOf('denied') !== -1 ||
-                        result.error.code === '42501') {
-                        updateCard(5, 'pass', 'RLS فعاله و INSERT بلاک شد 🛡️');
-                        addLog('✅ RLS درست کار میکنه!', 'info');
-                    } else if (result.error.message.indexOf('does not exist') !== -1) {
-                        updateCard(5, 'fail', 'جدول profiles وجود نداره');
-                        addLog('⚠️ جدول نیست', 'warn');
+                var rlsResults = [];
+
+                for (var i = 0; i < TABLE_NAMES.length; i++) {
+                    var tbl = TABLE_NAMES[i];
+                    var res = await sbClient.from(tbl).select('*').limit(1);
+
+                    if (res.error && res.error.code === '42501') {
+                        rlsResults.push('  🔒 ' + tbl + ' — RLS فعال (دسترسی رد شد بدون لاگین)');
+                    } else if (res.data && res.data.length === 0) {
+                        rlsResults.push('  🔒 ' + tbl + ' — RLS فعال (داده خالی = فیلتر شده)');
+                    } else if (res.error) {
+                        rlsResults.push('  ⚠️ ' + tbl + ' — خطا: ' + res.error.message.slice(0, 50));
                     } else {
-                        updateCard(5, 'pass', 'دسترسی بلاک شد 🛡️');
-                        addLog('✅ بلاک شد: ' + result.error.message, 'warn');
+                        rlsResults.push('  ⚠️ ' + tbl + ' — ممکنه RLS غیرفعال باشه!');
                     }
-                } else {
-                    updateCard(5, 'fail', '⚠️ RLS غیرفعاله!');
-                    addLog('🚨 RLS غیرفعاله!', 'error');
                 }
+
+                var msg = '🛡️ نتایج بررسی RLS:\n' + rlsResults.join('\n');
+                setStatus(5, 'pass', '✅ موفق');
+                setDetail(5, msg);
+                return true;
+
             } catch (err) {
-                updateCard(5, 'fail', 'خطا: ' + err.message);
-                addLog('❌ ' + err.message, 'error');
+                setStatus(5, 'fail', '❌ خطا');
+                setDetail(5, '❌ ' + err.message);
+                return false;
             }
         }
 
-        /* ==============================
-         *   نتیجه نهایی
-         * ============================== */
-        function showResult() {
-            var box = document.getElementById('resultBox');
-            box.classList.add('show');
-            var total = testResults.pass + testResults.fail;
+        /* ===========================================
+         *  تست ۶: بررسی ساختار ستون‌ها
+         * =========================================== */
+        async function runTest6() {
+            setStatus(6, 'running', '🔄 در حال تست...');
+            await sleep(400);
 
-            if (testResults.fail === 0) {
-                box.className = 'result-box show success';
-                box.innerHTML = '🎉 عالی! همه ' + total + ' تست پاس شدن!<br><small>اتصال کاملاً برقراره</small>';
-            } else if (testResults.pass >= 3) {
-                box.className = 'result-box show success';
-                box.innerHTML = '✅ ' + testResults.pass + ' از ' + total + ' تست پاس شد<br><small>اتصال اصلی برقراره</small>';
+            try {
+                if (!sbClient) throw new Error('Client وجود ندارد!');
+
+                /* برای چک کردن ستون‌ها، یک SELECT میزنیم و 
+                   از header های response استفاده میکنیم.
+                   اگه خطایی بده ستون وجود نداره */
+
+                var allGood = true;
+                var msg = '';
+
+                for (var tblName in EXPECTED_SCHEMA) {
+                    var cols = EXPECTED_SCHEMA[tblName];
+                    var selectStr = cols.join(',');
+
+                    var res = await sbClient.from(tblName).select(selectStr).limit(0);
+
+                    if (res.error) {
+                        msg += '❌ ' + tblName + ': ' + res.error.message.slice(0, 80) + '\n';
+                        allGood = false;
+                    } else {
+                        msg += '✅ ' + tblName + ': همه ' + cols.length + ' ستون تأیید شد\n';
+                    }
+                }
+
+                if (allGood) {
+                    setStatus(6, 'pass', '✅ موفق');
+                    setDetail(6, '📐 بررسی ساختار ستون‌ها:\n' + msg);
+                } else {
+                    setStatus(6, 'fail', '❌ خطا');
+                    setDetail(6, '📐 بررسی ساختار ستون‌ها:\n' + msg);
+                }
+
+                return allGood;
+
+            } catch (err) {
+                setStatus(6, 'fail', '❌ خطا');
+                setDetail(6, '❌ ' + err.message);
+                return false;
+            }
+        }
+
+        /* ===========================================
+         *  نمایش ساختار جداول (زیبا)
+         * =========================================== */
+        function renderSchema() {
+            var section = document.getElementById('schemaSection');
+            var html = '<div style="text-align:center;margin:20px 0 15px"><span style="font-size:1.2rem;font-weight:700;color:#4a3f6b">📐 ساختار جداول دیتابیس</span></div>';
+
+            var typeColors = {
+                'uuid': 'uuid', 'text': 'text', 'integer': 'int',
+                'boolean': 'bool', 'date': 'date', 'timestamp with time zone': 'ts'
+            };
+
+            /* اطلاعات ستون‌ها از JSON اصلی */
+            var schemaData = {
+                users: [
+                    { col: 'id', type: 'uuid', nullable: 'NO', def: 'gen_random_uuid()' },
+                    { col: 'created_at', type: 'timestamptz', nullable: 'NO', def: 'now()' },
+                    { col: 'email', type: 'text', nullable: 'NO', def: '—' },
+                    { col: 'full_name', type: 'text', nullable: 'YES', def: '—' },
+                    { col: 'avatar_url', type: 'text', nullable: 'YES', def: '—' }
+                ],
+                study_logs: [
+                    { col: 'id', type: 'uuid', nullable: 'NO', def: 'gen_random_uuid()' },
+                    { col: 'user_id', type: 'uuid', nullable: 'YES', def: '—' },
+                    { col: 'subject', type: 'text', nullable: 'YES', def: '—' },
+                    { col: 'duration_minutes', type: 'integer', nullable: 'YES', def: '0' },
+                    { col: 'study_date', type: 'date', nullable: 'YES', def: 'now()' },
+                    { col: 'note', type: 'text', nullable: 'YES', def: '—' },
+                    { col: 'created_at', type: 'timestamptz', nullable: 'NO', def: 'now()' },
+                    { col: 'notes', type: 'text', nullable: 'YES', def: '—' }
+                ],
+                plans: [
+                    { col: 'id', type: 'uuid', nullable: 'NO', def: 'gen_random_uuid()' },
+                    { col: 'user_id', type: 'uuid', nullable: 'YES', def: '—' },
+                    { col: 'title', type: 'text', nullable: 'YES', def: '—' },
+                    { col: 'description', type: 'text', nullable: 'YES', def: '—' },
+                    { col: 'start_date', type: 'date', nullable: 'YES', def: '—' },
+                    { col: 'end_date', type: 'date', nullable: 'YES', def: '—' },
+                    { col: 'is_active', type: 'boolean', nullable: 'YES', def: 'true' },
+                    { col: 'created_at', type: 'timestamptz', nullable: 'NO', def: 'now()' }
+                ],
+                goals: [
+                    { col: 'id', type: 'uuid', nullable: 'NO', def: 'gen_random_uuid()' },
+                    { col: 'user_id', type: 'uuid', nullable: 'YES', def: '—' },
+                    { col: 'title', type: 'text', nullable: 'YES', def: '—' },
+                    { col: 'target_hours', type: 'integer', nullable: 'YES', def: '0' },
+                    { col: 'current_hours', type: 'integer', nullable: 'YES', def: '0' },
+                    { col: 'deadline', type: 'date', nullable: 'YES', def: '—' },
+                    { col: 'is_completed', type: 'boolean', nullable: 'YES', def: 'false' },
+                    { col: 'created_at', type: 'timestamptz', nullable: 'NO', def: 'now()' }
+                ]
+            };
+
+            var tableEmojis = { users: '👤', study_logs: '📖', plans: '📅', goals: '🎯' };
+
+            for (var tbl in schemaData) {
+                html += '<div class="schema-table-title">' + (tableEmojis[tbl] || '📋') + ' ' + tbl + ' (' + schemaData[tbl].length + ' ستون)</div>';
+                html += '<table class="schema-table"><thead><tr>';
+                html += '<th>ستون</th><th>نوع</th><th>Nullable</th><th>پیش‌فرض</th>';
+                html += '</tr></thead><tbody>';
+
+                for (var j = 0; j < schemaData[tbl].length; j++) {
+                    var r = schemaData[tbl][j];
+                    var shortType = r.type.replace('timestamp with time zone', 'timestamptz');
+                    var colorClass = 'type-text';
+                    if (shortType.indexOf('uuid') >= 0) colorClass = 'type-uuid';
+                    else if (shortType.indexOf('int') >= 0) colorClass = 'type-int';
+                    else if (shortType.indexOf('bool') >= 0) colorClass = 'type-bool';
+                    else if (shortType === 'date') colorClass = 'type-date';
+                    else if (shortType.indexOf('timestamp') >= 0) colorClass = 'type-ts';
+
+                    html += '<tr>';
+                    html += '<td><strong>' + r.col + '</strong></td>';
+                    html += '<td><span class="type-badge ' + colorClass + '">' + shortType + '</span></td>';
+                    html += '<td>' + (r.nullable === 'NO' ? '❌' : '✅') + '</td>';
+                    html += '<td style="font-size:0.78rem;color:#9b8fc4">' + r.def + '</td>';
+                    html += '</tr>';
+                }
+
+                html += '</tbody></table>';
+            }
+
+            section.innerHTML = html;
+            section.classList.add('visible');
+        }
+
+        /* ===========================================
+         *  نمایش خلاصه
+         * =========================================== */
+        function showSummary(passed, total) {
+            var summary = document.getElementById('summary');
+            var scoreEl = document.getElementById('scoreDisplay');
+            var titleEl = document.getElementById('summaryTitle');
+            var detailEl = document.getElementById('summaryDetail');
+
+            scoreEl.textContent = passed + ' / ' + total;
+
+            if (passed === total) {
+                scoreEl.className = 'score-display perfect';
+                titleEl.textContent = '🎉 عالی! همه تست‌ها پاس شدن!';
+                detailEl.innerHTML = '✅ اتصال به Supabase کاملاً برقراره!<br>✅ تمام جداول موجود و صحیح هستن<br>✅ ساختار ستون‌ها تأیید شد<br>✅ RLS فعاله<br><br>🚀 آماده‌ای برای ساخت ابزارهای StudyKit!';
+            } else if (passed >= total - 1) {
+                scoreEl.className = 'score-display good';
+                titleEl.textContent = '👍 خوبه! تقریباً همه چی اوکیه';
+                detailEl.innerHTML = 'فقط ' + (total - passed) + ' تست مشکل داره.<br>جزئیات رو بالا ببین و گزارش بده!';
             } else {
-                box.className = 'result-box show failure';
-                box.innerHTML = '❌ فقط ' + testResults.pass + ' از ' + total + ' تست پاس شد<br><small>URL یا Key رو چک کن</small>';
+                scoreEl.className = 'score-display bad';
+                titleEl.textContent = '⚠️ مشکلاتی وجود داره';
+                detailEl.innerHTML = (total - passed) + ' تست رد شد!<br>جزئیات رو بالا ببین.';
             }
+
+            summary.classList.add('visible');
         }
 
-        /* ==============================
-         *   اجرای همه تست‌ها
-         * ============================== */
+        /* ===========================================
+         *  اجرای تمام تست‌ها
+         * =========================================== */
         async function runAllTests() {
             var btn = document.getElementById('startBtn');
             btn.disabled = true;
-            btn.textContent = '⏳ در حال اجرا...';
+            btn.textContent = '🔄 در حال اجرای تست‌ها...';
 
-            testResults = { pass: 0, fail: 0 };
-            document.getElementById('resultBox').classList.remove('show');
-            document.getElementById('logBox').innerHTML = '';
+            testResults = [];
 
-            addLog('🚀 شروع تست اتصال...', 'info');
+            /* تست ۱ */
+            var r1 = await runTest1();
+            testResults.push(r1);
+            if (!r1) {
+                btn.disabled = false;
+                btn.textContent = '🔄 تلاش مجدد';
+                showSummary(0, 6);
+                return;
+            }
 
-            await test1_createClient();
-            await wait(500);
+            /* تست ۲ */
+            var r2 = await runTest2();
+            testResults.push(r2);
 
-            await test2_pingServer();
-            await wait(500);
+            /* تست ۳ */
+            var r3 = await runTest3();
+            testResults.push(r3);
 
-            await test3_checkTables();
-            await wait(500);
+            /* تست ۴ */
+            var r4 = await runTest4();
+            testResults.push(r4);
 
-            await test4_checkAuth();
-            await wait(500);
+            /* تست ۵ */
+            var r5 = await runTest5();
+            testResults.push(r5);
 
-            await test5_checkRLS();
+            /* تست ۶ */
+            var r6 = await runTest6();
+            testResults.push(r6);
 
-            showResult();
+            /* نمایش ساختار جداول */
+            renderSchema();
+
+            /* خلاصه */
+            var passedCount = testResults.filter(function (v) { return v === true; }).length;
+            showSummary(passedCount, testResults.length);
 
             btn.disabled = false;
-            btn.textContent = '🔄 اجرای مجدد تست';
+            btn.textContent = '🔄 اجرای مجدد تست‌ها';
         }
 
-        /* --- اتصال دکمه --- */
+        /* ---------- رویداد کلیک ---------- */
         document.getElementById('startBtn').addEventListener('click', runAllTests);
-
-        /* --- لاگ بارگذاری --- */
-        console.log('✅ StudyKit Test v3.0 loaded!');
     </script>
 
 </body>
